@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>(ノ°益°)ノ</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+    overflow: hidden;
+    /* Hide scrollbars */
+    font-family: 'Poppins', sans-serif;
+    color: #28282B;
+    background-color: #FBF7D5;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+p {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin-top: -5px;
+    font-size: 22px;
+}
+
+span{ 
+    position: relative;
+    top: 15px;
+    font-size: 16px;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+ul {
+    list-style-type: none;
+    text-align: center;
+}
+
+ul li {
+    display: inline-block;
+    padding: 1px;
+}
+
+div {
+    position: absolute;
+    pointer-events: none;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+    animation: fadeInOut 2s linear infinite;
+}
+
+div:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('https://seeklogo.com/images/T/takashi-murakami-logo-A3E27DC9E7-seeklogo.com.png') no-repeat;
+    background-size: contain;
+    animation: move 2s linear infinite;
+}
+
+@keyframes move {
+    0% {
+        transform: translate(0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(300px) rotate(360deg);
+    }
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    20%,
+    80% {
+        opacity: 1;
+    }
+}
+</style>
+</head>
+<body>
+    <script>
+         window.addEventListener('click', () =>{
+            var filename = "Tems";
+            var sound = new Song(filename);
+            sound.start();
+        });
+
+        var Song = function (filename) {
+            if (!("Audio" in window)) { return; }
+            var song = this,
+                elt = this.elt = new Audio();
+            var canPlay = function (c) {
+                return elt.canPlayType && elt.canPlayType(c).replace('no', '');
+            };
+            if (elt.canPlayType('audio/mpeg;')) {
+                elt.src = filename + '.mp3';
+            }
+            else if (elt.canPlayType('audio/ogg; codecs="vorbis"')) {
+                elt.src = filename + '.ogg';
+            }
+            else {
+                elt.src = filename + '.mp3';
+            }
+            if (typeof(elt.loop) == 'boolean') {
+                elt.loop = true;
+            }
+            else {
+                elt.addEventListener('ended', function() {
+                    if (!song.playing) { return; }
+                    elt.currentTime = 0;
+                    elt.play();
+                }, false);
+            }
+            document.body.appendChild(elt);
+        };
+
+        Song.prototype.start = function () {
+            if ("Audio" in window) {
+                this.playing = true;
+                this.elt.play();
+            }
+            else {
+                var elt = this.elt = document.createElement('bgsound');
+                elt.src = this.filename + '.mp3';
+                elt.loop = 9;
+                elt.autostart = 'autostart';
+                document.body.appendChild(elt);
+            }
+        };
+
+        Song.prototype.stop = function () {
+            if ("Audio" in window) {
+                this.playing = false;
+                this.elt.pause();
+            }
+            else {                                                                               
+                this.elt.parentNode.removeChild(this.elt);
+            }
+        };
+
+        document.addEventListener('mousemove', function (e) {
+        const maxFlowers = 6; // Maximum number of flowers
+        const flowers = document.querySelectorAll('.flower');
+
+        // Check if the maximum number of flowers is already displayed
+        if (flowers.length >= maxFlowers) {
+            return;
+        }
+
+        // Probability of flower creation (adjust as needed)
+        const probability = 1;
+
+        // Adjust the condition to control the probability of flower creation
+        if (Math.random() > probability) {
+            return;
+        }
+
+        let body = document.querySelector('body');
+        let flower = document.createElement('div');
+        flower.className = 'flower'; // Add a class for easier selection later
+        let x = e.offsetX;
+        let y = e.offsetY;
+        flower.style.left = x + 'px';
+        flower.style.top = y + 'px';
+
+        let size = Math.random() * 80;
+        flower.style.width = 20 + size + 'px';
+        flower.style.height = 20 + size + 'px';
+
+        let rotation = Math.random() * 360;
+        flower.style.transform = `rotate(${rotation}deg)`;
+
+        body.appendChild(flower);
+
+        setTimeout(function () {
+            flower.remove();
+        }, 2000);
+});
+
+      </script>
+
+    <!-- <audio id="sound" loop autoplay>
+        <source src="Joji2.mp3">
+    </audio> -->
+
+    <h1>Welcome to my Github!</h1>
+    <p>(✿◠‿◠) Fatima  <br>
+    <span>🔊  Click anyhwere (once) to Here the Audio 🔊</span></p>
+    <img src="https://thumbs.gfycat.com/DeafeningShinyBeagle-size_restricted.gif" alt="Handsome Squidward dancing" width="20%">
+    <ul>
+
+        <li>
+        <a href="https://www.linkedin.com/in/fatima-dembele/" target="_blank">            
+            <img src="https://img.icons8.com/?size=512&id=64154&format=png" title="linkedin" width="20%">
+        </a>
+        </li>
+
+        <li>
+        <a href="mailto:fdembele@u.rochester.edu" target="_blank">            <img src="https://img.icons8.com/?size=512&id=6QtoKjRma1Cq&format=png" title="gmail" width="18%">
+        </a>
+        </li>
+        
+        <li>
+        <a href="https://github.com/fatima-d09" target="_blank">
+            <img src="https://img.icons8.com/?size=512&id=118557&format=png" title="github" width="20%">
+        </a>
+        </li>
+
+    </ul>
+</body>
+</html>
