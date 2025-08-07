@@ -98,11 +98,20 @@ div.flower::before {
 <body>
     <script>
         let sound;
+        let isPlaying = false;
         
          window.addEventListener('click', () =>{
             var filename = "Tems";
             var sound = new Song(filename);
             sound.start();
+
+        if (!isPlaying) {
+            sound.start();
+            isPlaying = true;
+         } else {
+            sound.stop();
+            isPlaying = false;
+         }
         });
 
         var Song = function (filename) {
