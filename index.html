@@ -13,93 +13,105 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 body {
-    overflow: hidden;
-    /* Hide scrollbars */
-    font-family: 'Poppins', sans-serif;
-    color: #28282B;
-    background-color: #FBF7D5;
+  overflow: hidden; /* Hide scrollbars */
+  font-family: 'Poppins', sans-serif;
+  color: #28282B;
+  background-color: #FBF7D5;
+  margin: 0;
 }
 
 h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 24px;
+  margin-bottom: 8px;
 }
 
 p {
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    margin-top: -5px;
-    font-size: 22px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 22px;
 }
 
-span{ 
-    position: relative;
-    top: 15px;
-    font-size: 16px;
+span { 
+  position: relative;
+  top: 15px;
+  font-size: 16px;
 }
 
+/* Default image behavior (good for the big GIF) */
 img {
-    display: block;
-    margin: 0 auto;
+  display: block;
+  margin: 0 auto;
 }
 
+/* --- Social icons row --- */
 ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 80px;          /* spacing between icons */
+  padding: 0;
+  margin: 28px 0 0;   /* push icons down a bit */
 }
 
 ul li {
-    display: flex;
-}
-
-ul li img {
-    display: inline-block;
-    margin: 0;
+  display: flex;
 }
 
 
+.social-icon {
+  width: 70px;        /* change to 60px if you want smaller */
+  height: 70px;
+  display: block;
+  margin: 0;
+}
+
+/* subtle hover effect */
+ul li a {
+  pointer-events: auto; /* flower div uses pointer-events none; links should still work */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ul li a:hover .social-icon {
+  transform: translateY(-2px);
+  transition: transform 120ms ease;
+}
+
+/* --- Flower cursor effect --- */
 div {
-    position: absolute;
-    pointer-events: none;
-    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
-    animation: fadeInOut 2s linear infinite;
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+  animation: fadeInOut 2s linear infinite;
 }
+
 /* flower */
 div.flower::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('46ae3fd45fb59aae5bdb775eccd3ee07-removebg-preview.png') no-repeat center center;
-    background-size: contain;
-    animation: move 2s linear infinite;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('46ae3fd45fb59aae5bdb775eccd3ee07-removebg-preview.png') no-repeat center center;
+  background-size: contain;
+  animation: move 2s linear infinite;
 }
 
 @keyframes move {
-    0% {
-        transform: translate(0) rotate(0deg);
-    }
-
-    100% {
-        transform: translate(300px) rotate(360deg);
-    }
+  0% { transform: translate(0) rotate(0deg); }
+  100% { transform: translate(300px) rotate(360deg); }
 }
 
 @keyframes fadeInOut {
-
-    0%,
-    100% {
-        opacity: 0;
-    }
-
-    20%,
-    80% {
-        opacity: 1;
-    }
+  0%, 100% { opacity: 0; }
+  20%, 80% { opacity: 1; }
 }
 </style>
 </head>
@@ -228,19 +240,19 @@ div.flower::before {
 
         <li>
         <a href="https://www.linkedin.com/in/fatima-dembele/" target="_blank">            
-            <img src="https://img.icons8.com/?size=512&id=64154&format=png" title="linkedin" width="20%">
+            <img src="https://img.icons8.com/?size=512&id=64154&format=png" title="linkedin">
         </a>
         </li>
 
         <li>
         <a href="mailto:fdembele@u.rochester.edu" target="_blank">            
-            <img src="https://img.icons8.com/?size=512&id=6QtoKjRma1Cq&format=png" title="gmail" width="18%">
+            <img src="https://img.icons8.com/?size=512&id=6QtoKjRma1Cq&format=png" title="gmail">
         </a>
         </li>
         
         <li>
         <a href="https://github.com/fatima-d09" target="_blank">
-            <img src="https://img.icons8.com/?size=512&id=118557&format=png" title="github" width="20%">
+            <img src="https://img.icons8.com/?size=512&id=118557&format=png" title="github">
         </a>
         </li>
 
