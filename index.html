@@ -1,261 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv='cache-control' content='no-cache'> 
-    <meta http-equiv='expires' content='0'> 
-    <meta http-equiv='pragma' content='no-cache'>
-    <link rel="stylesheet" href="styles.css">
-    <title>(ノ°益°)ノ</title>
-<style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+  <title>(ノ°益°)ノ</title>
+
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-body {
-  overflow: hidden; /* Hide scrollbars */
-  font-family: 'Poppins', sans-serif;
-  color: #28282B;
-  background-color: #FBF7D5;
-  margin: 0;
-}
+    body {
+      overflow: hidden; /* Hide scrollbars */
+      font-family: 'Poppins', sans-serif;
+      color: #28282B;
+      background-color: #FBF7D5;
+      margin: 0;
+    }
 
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  font-family: 'Poppins', sans-serif;
-  margin-top: 24px;
-  margin-bottom: 8px;
-}
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-family: 'Poppins', sans-serif;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
 
-p {
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  margin-top: 0;
-  margin-bottom: 14px;
-  font-size: 22px;
-}
+    p {
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 22px;
+    }
 
-span { 
-  position: relative;
-  top: 15px;
-  font-size: 16px;
-}
+    span {
+      position: relative;
+      top: 15px;
+      font-size: 16px;
+    }
 
-/* Default image behavior (good for the big GIF) */
-img {
-  display: block;
-  margin: 0 auto;
-}
+    /* Default image behavior (good for the big GIF) */
+    img {
+      display: block;
+      margin: 0 auto;
+    }
 
-/* --- Social icons row --- */
-ul {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    /* --- Social icons row --- */
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 80px;          /* spacing between icons */
+      padding: 0;
+      margin: 28px 0 0;   /* push icons down a bit */
+    }
 
-  gap: 80px;          /* spacing between icons */
-  padding: 0;
-  margin: 28px 0 0;   /* push icons down a bit */
-}
+    ul li {
+      display: flex;
+    }
 
-ul li {
-  display: flex;
-}
+    ul li a {
+      pointer-events: auto; /* flower div uses pointer-events none; links should still work */
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
 
+    /* ✅ SOCIAL ICON SIZING */
+    .social-icon {
+      width: 48px;       /* tweak: 40–56 looks great */
+      height: 48px;
+      display: block;
+      margin: 0;
+    }
 
-.social-icon {
-  width: 10px;        /* change to 60px if you want smaller */
-  height: 10px;
-  display: block;
-  margin: 0;
-}
+    /* ✅ subtle hover effect */
+    ul li img {
+      transition: transform 150ms ease, filter 150ms ease;
+    }
 
-/* subtle hover effect */
-ul li a {
-  pointer-events: auto; /* flower div uses pointer-events none; links should still work */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
+    ul li img:hover {
+      transform: translateY(-3px) scale(1.05);
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+    }
 
-ul li a:hover .social-icon {
-  transform: translateY(-2px);
-  transition: transform 120ms ease;
-}
+    /* --- Flower cursor effect --- */
+    div {
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
+      animation: fadeInOut 2s linear infinite;
+    }
 
-/* --- Flower cursor effect --- */
-div {
-  position: absolute;
-  pointer-events: none;
-  filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
-  animation: fadeInOut 2s linear infinite;
-}
+    /* flower */
+    div.flower::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('46ae3fd45fb59aae5bdb775eccd3ee07-removebg-preview.png') no-repeat center center;
+      background-size: contain;
+      animation: move 2s linear infinite;
+    }
 
-/* flower */
-div.flower::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url('46ae3fd45fb59aae5bdb775eccd3ee07-removebg-preview.png') no-repeat center center;
-  background-size: contain;
-  animation: move 2s linear infinite;
-}
+    @keyframes move {
+      0% { transform: translate(0) rotate(0deg); }
+      100% { transform: translate(300px) rotate(360deg); }
+    }
 
-@keyframes move {
-  0% { transform: translate(0) rotate(0deg); }
-  100% { transform: translate(300px) rotate(360deg); }
-}
-
-@keyframes fadeInOut {
-  0%, 100% { opacity: 0; }
-  20%, 80% { opacity: 1; }
-}
-</style>
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      20%, 80% { opacity: 1; }
+    }
+  </style>
 </head>
+
 <body>
-    <script>
-        let sound;
-        let isPlaying = false;
-        
-         window.addEventListener('click', () =>{
-            var filename = "Tems";
-            var sound = new Song(filename);
-            sound.start();
+  <script>
+    let isPlaying = false;
+    let sound; // keep reference so stop works
 
-        if (!isPlaying) {
-            sound.start();
-            isPlaying = true;
-         } else {
-            sound.stop();
-            isPlaying = false;
-         }
-        });
+    window.addEventListener('click', () => {
+      const filename = "Tems";
 
-        var Song = function (filename) {
-            if (!("Audio" in window)) { return; }
-            var song = this,
-                elt = this.elt = new Audio();
-            var canPlay = function (c) {
-                return elt.canPlayType && elt.canPlayType(c).replace('no', '');
-            };
-            if (elt.canPlayType('audio/mpeg;')) {
-                elt.src = filename + '.mp3';
-            }
-            else if (elt.canPlayType('audio/ogg; codecs="vorbis"')) {
-                elt.src = filename + '.ogg';
-            }
-            else {
-                elt.src = filename + '.mp3';
-            }
-            if (typeof(elt.loop) == 'boolean') {
-                elt.loop = true;
-            }
-            else {
-                elt.addEventListener('ended', function() {
-                    if (!song.playing) { return; }
-                    elt.currentTime = 0;
-                    elt.play();
-                }, false);
-            }
-            document.body.appendChild(elt);
-        };
+      // ✅ only create once
+      if (!sound) sound = new Song(filename);
 
-        Song.prototype.start = function () {
-            if ("Audio" in window) {
-                this.playing = true;
-                this.elt.play();
-            }
-            else {
-                var elt = this.elt = document.createElement('bgsound');
-                elt.src = this.filename + '.mp3';
-                elt.loop = 9;
-                elt.autostart = 'autostart';
-                document.body.appendChild(elt);
-            }
-        };
+      if (!isPlaying) {
+        sound.start();
+        isPlaying = true;
+      } else {
+        sound.stop();
+        isPlaying = false;
+      }
+    });
 
-        Song.prototype.stop = function () {
-            if ("Audio" in window) {
-                this.playing = false;
-                this.elt.pause();
-            }
-            else {                                                                               
-                this.elt.parentNode.removeChild(this.elt);
-            }
-        };
+    var Song = function (filename) {
+      if (!("Audio" in window)) { return; }
 
-        document.addEventListener('mousemove', function (e) {
-        const maxFlowers = 6; // Maximum number of flowers
-        const flowers = document.querySelectorAll('.flower');
+      this.filename = filename;
+      var song = this,
+        elt = this.elt = new Audio();
 
-        // Check if the maximum number of flowers is already displayed
-        if (flowers.length >= maxFlowers) {
-            return;
-        }
+      if (elt.canPlayType('audio/mpeg;')) {
+        elt.src = filename + '.mp3';
+      } else if (elt.canPlayType('audio/ogg; codecs="vorbis"')) {
+        elt.src = filename + '.ogg';
+      } else {
+        elt.src = filename + '.mp3';
+      }
 
-        // Probability of flower creation (adjust as needed)
-        const probability = 1;
+      elt.loop = true;
 
-        // Adjust the condition to control the probability of flower creation
-        if (Math.random() > probability) {
-            return;
-        }
+      // Optional: keep it invisible
+      elt.style.display = "none";
+      document.body.appendChild(elt);
+    };
 
-        let body = document.querySelector('body');
-        let flower = document.createElement('div');
-        flower.className = 'flower'; // Add a class for easier selection later
-        let x = e.offsetX;
-        let y = e.offsetY;
-        flower.style.left = x + 'px';
-        flower.style.top = y + 'px';
+    Song.prototype.start = function () {
+      if ("Audio" in window) {
+        this.playing = true;
+        this.elt.play();
+      }
+    };
 
-        let size = Math.random() * 80;
-        flower.style.width = 20 + size + 'px';
-        flower.style.height = 20 + size + 'px';
+    Song.prototype.stop = function () {
+      if ("Audio" in window) {
+        this.playing = false;
+        this.elt.pause();
+      }
+    };
 
-        let rotation = Math.random() * 360;
-        flower.style.transform = `rotate(${rotation}deg)`;
+    document.addEventListener('mousemove', function (e) {
+      const maxFlowers = 6; // Maximum number of flowers
+      const flowers = document.querySelectorAll('.flower');
 
-        body.appendChild(flower);
+      // Check if the maximum number of flowers is already displayed
+      if (flowers.length >= maxFlowers) return;
 
-        setTimeout(function () {
-            flower.remove();
-        }, 2000);
-});
+      // Probability of flower creation (1 = always, 0.5 = half the time)
+      const probability = 1;
+      if (Math.random() > probability) return;
 
-      </script>
+      let body = document.querySelector('body');
+      let flower = document.createElement('div');
+      flower.className = 'flower';
 
-    <!-- <audio id="sound" loop autoplay>
-        <source src="Joji2.mp3">
-    </audio> -->
+      let x = e.offsetX;
+      let y = e.offsetY;
+      flower.style.left = x + 'px';
+      flower.style.top = y + 'px';
 
-    <h1>Welcome to my Github!</h1>
-    <p>(✿◠‿◠) Fatima  <br>
-    <span>🔊  Click anywhere (once) to Here the Audio 🔊</span></p>
-    <img src="https://i.gifer.com/O8Ho.gif" alt="Handsome Squidward dancing" width="20%">
-    <ul>
+      let size = Math.random() * 80;
+      flower.style.width = 20 + size + 'px';
+      flower.style.height = 20 + size + 'px';
 
-        <li>
-        <a href="https://www.linkedin.com/in/fatima-dembele/" target="_blank">            
-            <img src="https://img.icons8.com/?size=512&id=64154&format=png" title="linkedin">
-        </a>
-        </li>
+      let rotation = Math.random() * 360;
+      flower.style.transform = `rotate(${rotation}deg)`;
 
-        <li>
-        <a href="mailto:fdembele@u.rochester.edu" target="_blank">            
-            <img src="https://img.icons8.com/?size=512&id=6QtoKjRma1Cq&format=png" title="gmail">
-        </a>
-        </li>
-        
-        <li>
-        <a href="https://github.com/fatima-d09" target="_blank">
-            <img src="https://img.icons8.com/?size=512&id=118557&format=png" title="github">
-        </a>
-        </li>
+      body.appendChild(flower);
 
-    </ul>
+      setTimeout(function () {
+        flower.remove();
+      }, 2000);
+    });
+  </script>
+
+  <h1>Welcome to my Github!</h1>
+
+  <p>(✿◠‿◠) Fatima <br>
+    <span>🔊 Click anywhere (once) to Here the Audio 🔊</span>
+  </p>
+
+  <img src="https://i.gifer.com/O8Ho.gif" alt="Handsome Squidward dancing" width="20%">
+
+  <ul>
+    <li>
+      <a href="https://www.linkedin.com/in/fatima-dembele/" target="_blank" rel="noopener noreferrer">
+        <img class="social-icon" src="https://img.icons8.com/?size=512&id=64154&format=png" title="linkedin" alt="LinkedIn">
+      </a>
+    </li>
+
+    <li>
+      <a href="mailto:fdembele@u.rochester.edu" target="_blank" rel="noopener noreferrer">
+        <img class="social-icon" src="https://img.icons8.com/?size=512&id=6QtoKjRma1Cq&format=png" title="gmail" alt="Gmail">
+      </a>
+    </li>
+
+    <li>
+      <a href="https://github.com/fatima-d09" target="_blank" rel="noopener noreferrer">
+        <img class="social-icon" src="https://img.icons8.com/?size=512&id=118557&format=png" title="github" alt="GitHub">
+      </a>
+    </li>
+  </ul>
 </body>
 </html>
