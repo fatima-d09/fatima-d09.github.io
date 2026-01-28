@@ -45,14 +45,22 @@ img {
 }
 
 ul {
-    list-style-type: none;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 0;
 }
 
 ul li {
-    display: inline-block;
-    padding: 1px;
+    display: flex;
 }
+
+ul li img {
+    display: inline-block;
+    margin: 0;
+}
+
 
 div {
     position: absolute;
