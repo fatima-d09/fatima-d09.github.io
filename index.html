@@ -2,240 +2,1019 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
-  <meta http-equiv="pragma" content="no-cache">
-  <title>(ノ°益°)ノ</title>
-
+  <title>Fatima — The Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#1e1108; --parchment:#f0ddb8; --parchment2:#d4b98a;
+      --gold:#b8892e; --gold-light:#d4aa5a; --gold-soft:#c9a84c; --gold-dark:#7a5518;
+      --frame-wood:#3d2008; --frame-mid:#5a3010; --ink:#1e1108;
+    }
+    html,body{width:100%;height:100%;overflow:hidden;}
+    body{
+      font-family:'IM Fell English',serif;
+      background:radial-gradient(ellipse at 50% 0%,#2e1a08 0%,#160c03 60%,#0e0702 100%);
+      color:var(--parchment);display:flex;flex-direction:column;
+      align-items:center;justify-content:center;min-height:100dvh;cursor:none;
+    }
+    body::after{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:50;opacity:0.45;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+    .spot{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(110px);}
+    .spot-top{width:640px;height:320px;background:#7a4a10;top:-160px;left:50%;transform:translateX(-50%);opacity:0.28;}
+    .spot-bl{width:260px;height:260px;background:#4a2c08;bottom:-60px;left:5%;opacity:0.2;}
+    .spot-br{width:240px;height:240px;background:#4a2c08;bottom:-60px;right:5%;opacity:0.2;}
+    .dust{position:fixed;border-radius:50%;background:var(--gold-light);pointer-events:none;z-index:1;animation:floatDust linear infinite;opacity:0;}
+    @keyframes floatDust{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:0.45;}90%{opacity:0.2;}100%{transform:translateY(-10vh) translateX(25px) scale(1);opacity:0;}}
 
-    body {
-      overflow: hidden; /* Hide scrollbars */
-      font-family: 'Poppins', sans-serif;
-      color: #28282B;
-      background-color: #FBF7D5;
-      margin: 0;
+    /* ── TOP-RIGHT CORNER BUTTONS ── */
+    .corner-btns{
+      position:fixed;top:14px;right:14px;
+      z-index:100;display:flex;gap:8px;align-items:center;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 2.5rem;
-      font-family: 'Poppins', sans-serif;
-      margin-top: 24px;
-      margin-bottom: 8px;
+    /* shared pill style */
+    .corner-btn{
+      font-family:'IM Fell English SC',serif;
+      font-size:clamp(0.55rem,1.3vw,0.72rem);
+      letter-spacing:0.1em;
+      border-radius:30px;padding:7px 16px;
+      cursor:none;white-space:nowrap;
+      transition:transform 200ms cubic-bezier(.34,1.56,.64,1),box-shadow 200ms,background 300ms,color 300ms;
+      border:1.5px solid;
+    }
+    .corner-btn:hover{transform:translateY(-2px) scale(1.05);}
+
+    /* café toggle */
+    .cafe-toggle{
+      color:var(--ink);
+      background:linear-gradient(120deg,#8b6120,#e8c46a 50%,#8b6120);
+      border-color:#e8c46a;
+      box-shadow:0 0 0 3px rgba(232,196,106,0.2),0 3px 14px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.3);
+      animation:cafeButtonPulse 2.6s ease-in-out infinite;
+    }
+    @keyframes cafeButtonPulse{
+      0%,100%{box-shadow:0 0 0 3px rgba(232,196,106,0.2),0 3px 14px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.3);}
+      50%{box-shadow:0 0 0 8px rgba(232,196,106,0),0 3px 22px rgba(232,196,106,0.3),inset 0 1px 0 rgba(255,255,255,0.3);}
+    }
+    .cafe-toggle:hover{animation:none;box-shadow:0 0 0 4px rgba(232,196,106,0.3),0 6px 22px rgba(232,196,106,0.35);}
+    .cafe-toggle.active{background:linear-gradient(120deg,#5a3a08,#a07830 50%,#5a3a08);border-color:#a07830;}
+
+    /* theme toggle */
+    .theme-toggle{
+      color:var(--parchment);
+      background:rgba(255,255,255,0.07);
+      border-color:rgba(255,255,255,0.2);
+      box-shadow:0 3px 12px rgba(0,0,0,0.4);
+    }
+    .theme-toggle:hover{box-shadow:0 6px 18px rgba(0,0,0,0.4);}
+
+    /* ── LIGHT MODE ── */
+    body.light{
+      background:radial-gradient(ellipse at 50% 0%,#f5e8c8 0%,#ede0b0 60%,#e0d098 100%) !important;
+      color:#2b1d0e;
+    }
+    body.light .wrapper h1{color:#6b4010;text-shadow:0 2px 12px rgba(100,60,10,0.2);}
+    body.light .byline{color:#7a5520;}
+    body.light .music-hint{color:#7a5520;}
+    body.light .music-hint.playing{color:#5a3a08;}
+    body.light .spot-top{background:#d4a060;opacity:0.35;}
+    body.light .spot-bl,body.light .spot-br{background:#c49050;opacity:0.2;}
+    body.light .icon-circle{background:radial-gradient(circle at 38% 32%,#e8d0a0,#d4b870);}
+    body.light .icon-circle{border-color:var(--gold-dark);}
+    body.light .icon-label{color:#5a3a08;}
+    body.light .frame-outer{border-color:#5a3a10;}
+    body.light .github-svg{fill:#2b1d0e;}
+    body.light .icon-link:hover .github-svg{fill:#6b4010;}
+    body.light .theme-toggle{color:#2b1d0e;background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.2);}
+    body.light .cafe-toggle{color:#2b1d0e;}
+    body.light::after{opacity:0.15;}
+    body.light .dust{background:#a07828;}
+
+    /* ── WRAPPER ── */
+    .wrapper{
+      position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;
+      gap:clamp(7px,1.6vh,14px);padding:clamp(10px,2.5vw,28px);width:100%;
+      animation:revealUp 1s cubic-bezier(.4,0,.2,1) both;
+    }
+    @keyframes revealUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+    h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1rem,3.8vw,2.2rem);color:var(--gold-light);text-align:center;letter-spacing:0.05em;line-height:1.2;text-shadow:0 2px 18px rgba(180,140,60,0.35);}
+    .byline{font-family:'IM Fell English SC',serif;font-size:clamp(0.65rem,1.8vw,0.9rem);color:var(--parchment2);letter-spacing:0.16em;opacity:0.8;text-align:center;margin-top:2px;}
+    .plaque{
+      background:linear-gradient(120deg,var(--gold-dark) 0%,var(--gold-soft) 48%,var(--gold-dark) 100%);
+      color:var(--ink);font-family:'IM Fell English SC',serif;font-size:clamp(0.48rem,1.4vw,0.68rem);
+      letter-spacing:0.12em;padding:4px 20px;border-radius:2px;
+      box-shadow:0 2px 12px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .music-hint{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.55rem,1.6vw,0.72rem);color:var(--parchment2);opacity:0.5;letter-spacing:0.04em;transition:opacity .4s,color .4s;text-align:center;}
+    .music-hint.playing{opacity:1;color:var(--gold-light);}
+
+    /* ── FRAME ── */
+    .frame-outer{
+      position:relative;display:inline-flex;align-items:center;justify-content:center;
+      border:clamp(8px,1.8vw,15px) solid var(--frame-wood);border-radius:3px;
+      padding:clamp(4px,1vw,9px);background:var(--frame-mid);
+      box-shadow:inset 0 0 0 2px var(--gold-soft),inset 0 0 0 4px var(--frame-wood),0 0 0 2px var(--gold-soft),0 14px 50px rgba(0,0,0,0.7),0 2px 6px rgba(0,0,0,0.45);
+    }
+    .corner{position:absolute;width:clamp(10px,2vw,17px);height:clamp(10px,2vw,17px);border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--gold-light),var(--gold-dark));border:1px solid var(--gold-soft);box-shadow:0 0 5px 1px rgba(180,140,50,0.4);z-index:3;}
+    .corner.tl{top:-5px;left:-5px;}.corner.tr{top:-5px;right:-5px;}.corner.bl{bottom:-5px;left:-5px;}.corner.br{bottom:-5px;right:-5px;}
+    .frame-liner{position:relative;border:2px solid var(--gold-soft);padding:clamp(2px,0.5vw,5px);background:#0e0702;}
+    .frame-liner::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(10,5,0,0.5) 100%);z-index:2;pointer-events:none;}
+    .squidward{display:block;width:clamp(115px,18vw,188px);height:auto;animation:bob 2.8s ease-in-out infinite;position:relative;z-index:1;}
+    @keyframes bob{0%,100%{transform:translateY(0) rotate(-0.3deg);}50%{transform:translateY(-9px) rotate(0.3deg);}}
+    .frame-caption{position:absolute;bottom:clamp(-24px,-4.5vw,-18px);left:50%;transform:translateX(-50%);font-family:'IM Fell English SC',serif;font-size:clamp(0.42rem,1.2vw,0.58rem);color:var(--gold-soft);white-space:nowrap;letter-spacing:0.14em;text-shadow:0 1px 8px rgba(0,0,0,0.9);}
+
+    /* ── ICONS ── */
+    .icons-row{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(14px,4vw,44px);margin-top:clamp(20px,3.2vh,36px);}
+    .icon-link{display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;cursor:none;}
+    .icon-circle{
+      width:clamp(48px,8vw,70px);height:clamp(48px,8vw,70px);border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-size:clamp(1.2rem,3vw,1.75rem);
+      position:relative;background:radial-gradient(circle at 38% 32%,#3a2010,#1a0c04);
+      border:2px solid var(--gold-soft);box-shadow:0 0 0 1px var(--gold-dark),0 5px 20px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.07);
+      animation:floatIcon 3.6s ease-in-out infinite;
+      transition:transform 280ms cubic-bezier(.34,1.56,.64,1),box-shadow 280ms ease,background 280ms ease;
+    }
+    .icon-link:nth-child(1) .icon-circle{animation-delay:0s;}.icon-link:nth-child(2) .icon-circle{animation-delay:0.55s;}.icon-link:nth-child(3) .icon-circle{animation-delay:1.1s;}.icon-link:nth-child(4) .icon-circle{animation-delay:1.65s;}
+    @keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+    .icon-link:hover .icon-circle{transform:translateY(-12px) scale(1.14) rotate(-4deg) !important;background:radial-gradient(circle at 38% 32%,#5e3018,#2a1206);box-shadow:0 0 0 1px var(--gold-dark),0 0 22px 5px rgba(180,136,48,0.45),0 12px 28px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1);}
+    .icon-circle::before{content:'';position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--gold-light);opacity:0;transform:scale(0.82);transition:opacity 250ms,transform 300ms cubic-bezier(.34,1.56,.64,1);}
+    .icon-link:hover .icon-circle::before{opacity:0.6;transform:scale(1.2);}
+    .icon-label{font-family:'IM Fell English SC',serif;font-size:clamp(0.46rem,1.3vw,0.62rem);letter-spacing:0.13em;color:var(--parchment2);opacity:0.6;transition:opacity 200ms,color 200ms;text-align:center;}
+    .icon-link:hover .icon-label{opacity:1;color:var(--gold-light);}
+    .github-svg{width:clamp(1.2rem,3vw,1.75rem);height:clamp(1.2rem,3vw,1.75rem);fill:var(--parchment);transition:fill 200ms;}
+    .icon-link:hover .github-svg{fill:var(--gold-light);}
+
+    /* ── CURSOR ── */
+    #cursor-butter{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-90%);font-size:clamp(20px,3vw,30px);filter:drop-shadow(0 2px 6px rgba(200,160,60,0.45));line-height:1;user-select:none;}
+
+    /* ── FLOWERS ── */
+    .flower{position:fixed;pointer-events:none;z-index:9998;animation:flowerFade 2s ease-out forwards;}
+    .flower::before{content:'';position:absolute;inset:0;background:url('46ae3fd45fb59aae5bdb775eccd3ee07-removebg-preview.png') no-repeat center/contain;filter:sepia(0.5) saturate(1.6) hue-rotate(5deg) brightness(1.1);animation:flowerDrift 2s linear forwards;}
+    @keyframes flowerDrift{100%{transform:translate(var(--dx),var(--dy)) rotate(var(--dr));}}
+    @keyframes flowerFade{0%{opacity:1;}65%{opacity:0.75;}100%{opacity:0;}}
+
+    /* ════════════════════════════
+       ☕ BARISTA GAME MODAL
+    ════════════════════════════ */
+    .modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(8,4,0,0.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.32s ease;backdrop-filter:blur(4px);}
+    .modal-overlay.open{opacity:1;pointer-events:all;}
+
+    .game-modal{
+      background:linear-gradient(160deg,#1e1005 0%,#120a02 100%);
+      border:2px solid var(--gold-soft);
+      box-shadow:0 0 0 1px var(--gold-dark),0 30px 90px rgba(0,0,0,0.9),inset 0 1px 0 rgba(255,255,255,0.04);
+      border-radius:6px;padding:clamp(12px,2vw,22px);
+      width:min(680px,96vw);max-height:92vh;overflow:hidden;
+      position:relative;display:flex;flex-direction:column;gap:10px;
+      animation:modalIn 0.32s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes modalIn{from{transform:scale(0.9) translateY(18px);}to{transform:scale(1) translateY(0);}}
+
+    .modal-header{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .modal-title-wrap{display:flex;flex-direction:column;gap:2px;}
+    .modal-title{font-family:'Cinzel Decorative',serif;font-size:clamp(0.85rem,2.2vw,1.2rem);color:var(--gold-light);letter-spacing:0.05em;}
+    .modal-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.52rem,1.3vw,0.68rem);color:var(--parchment2);opacity:0.65;}
+    .hud{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+    .hud-box{
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.52rem,1.3vw,0.7rem);
+      letter-spacing:0.08em;color:var(--parchment2);
+      background:rgba(255,255,255,0.05);border:1px solid var(--gold-dark);
+      border-radius:3px;padding:3px 10px;line-height:1.5;text-align:center;
+    }
+    .hud-box strong{color:var(--gold-light);font-style:normal;}
+    .close-btn{background:none;border:none;color:var(--parchment2);font-size:1.1rem;cursor:none;opacity:0.55;transition:opacity 200ms;font-family:serif;flex-shrink:0;}
+    .close-btn:hover{opacity:1;}
+
+    /* timer bar */
+    .timer-track{width:100%;height:7px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;border:1px solid var(--gold-dark);}
+    .timer-fill{height:100%;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));border-radius:4px;transition:width 0.25s linear,background 0.5s;}
+    .timer-fill.low{background:linear-gradient(90deg,#8b1a1a,#d44);}
+
+    /* ── ORDER QUEUE ── */
+    .order-queue{display:flex;gap:8px;min-height:54px;align-items:flex-start;flex-wrap:wrap;}
+    .order-ticket{
+      background:rgba(255,255,255,0.06);border:1.5px solid var(--gold-soft);
+      border-radius:4px;padding:5px 10px;min-width:80px;
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.5rem,1.2vw,0.65rem);
+      letter-spacing:0.07em;color:var(--parchment2);text-align:center;
+      position:relative;flex-shrink:0;
+      animation:ticketIn 0.3s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes ticketIn{from{transform:scale(0.7) translateY(-10px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+    .order-ticket.active{border-color:var(--gold-light);background:rgba(212,170,90,0.1);box-shadow:0 0 10px rgba(212,170,90,0.2);}
+    .order-ticket .t-drink{font-size:clamp(0.62rem,1.5vw,0.78rem);color:var(--gold-light);}
+    .order-ticket .t-shots{font-size:clamp(0.48rem,1.1vw,0.6rem);opacity:0.7;}
+    .order-ticket .t-extra{font-size:clamp(0.48rem,1.1vw,0.6rem);opacity:0.7;color:var(--parchment);}
+    .order-tick-bar{position:absolute;bottom:0;left:0;height:3px;border-radius:0 0 3px 3px;background:var(--gold-soft);transition:width 0.25s linear;}
+    .order-tick-bar.urgent{background:#e05050;}
+    .order-ticket.served{animation:servedPop 0.4s ease both;pointer-events:none;}
+    @keyframes servedPop{0%{transform:scale(1);}50%{transform:scale(1.15);}100%{transform:scale(0) translateY(-20px);opacity:0;}}
+    .order-ticket.failed{animation:failedShake 0.35s ease both;border-color:#c04040;background:rgba(192,64,64,0.15);}
+    @keyframes failedShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+
+    /* ── ESPRESSO MACHINE ── */
+    .machine-area{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;
+      align-items:start;
     }
 
-    p {
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
-      margin-top: 0;
-      margin-bottom: 14px;
-      font-size: 22px;
+    /* LEFT: machine + cup */
+    .machine-left{display:flex;flex-direction:column;align-items:center;gap:8px;}
+
+    .machine-body{
+      width:clamp(130px,20vw,190px);
+      background:linear-gradient(160deg,#2a2a2a 0%,#1a1a1a 100%);
+      border:2px solid #444;border-radius:8px 8px 4px 4px;
+      padding:10px 12px 12px;
+      box-shadow:0 6px 24px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.08);
+      position:relative;
+    }
+    .machine-brand{
+      font-family:'Cinzel Decorative',serif;font-size:clamp(0.4rem,0.9vw,0.55rem);
+      color:var(--gold-light);letter-spacing:0.12em;text-align:center;margin-bottom:8px;opacity:0.8;
+    }
+    /* portafilter area */
+    .portafilter-zone{
+      background:#111;border-radius:4px;border:1px solid #333;
+      padding:8px;display:flex;flex-direction:column;align-items:center;gap:4px;
+      position:relative;margin-bottom:8px;
+    }
+    .pf-label{font-family:'IM Fell English SC',serif;font-size:clamp(0.38rem,0.9vw,0.5rem);color:#888;letter-spacing:0.1em;margin-bottom:2px;}
+    /* shot stream animation */
+    .shot-streams{display:flex;gap:6px;height:32px;align-items:flex-end;justify-content:center;}
+    .shot-stream{
+      width:4px;border-radius:2px;
+      background:linear-gradient(180deg,#6b3a1a,#3a1a08);
+      height:0;transition:height 0.08s ease;
+      position:relative;overflow:hidden;
+    }
+    .shot-stream.flowing{
+      animation:streamFlow 0.4s ease-in-out infinite;
+    }
+    @keyframes streamFlow{
+      0%{background:linear-gradient(180deg,#8b5a2a,#5a2a10);}
+      50%{background:linear-gradient(180deg,#c08040,#6b3a18);}
+      100%{background:linear-gradient(180deg,#8b5a2a,#5a2a10);}
+    }
+    /* shot counter in machine */
+    .shot-count-display{
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.42rem,1vw,0.58rem);
+      color:var(--gold-soft);letter-spacing:0.1em;text-align:center;
+      min-height:14px;
     }
 
-    span {
-      position: relative;
-      top: 15px;
-      font-size: 16px;
+    /* PULL BUTTON */
+    .pull-btn{
+      width:100%;font-family:'IM Fell English SC',serif;
+      font-size:clamp(0.48rem,1.1vw,0.64rem);letter-spacing:0.1em;
+      background:linear-gradient(180deg,#3a3a3a,#222);
+      border:2px solid #555;border-radius:4px;
+      color:var(--parchment2);padding:6px 0;cursor:none;
+      transition:all 120ms ease;
+      box-shadow:0 3px 0 #111,0 4px 8px rgba(0,0,0,0.4);
+      position:relative;overflow:hidden;
+      user-select:none;
+    }
+    .pull-btn:active,.pull-btn.pressing{
+      transform:translateY(2px);
+      box-shadow:0 1px 0 #111,0 2px 4px rgba(0,0,0,0.4);
+      background:linear-gradient(180deg,#222,#3a3a3a);
+    }
+    .pull-btn.pulling{background:linear-gradient(180deg,#1a0e04,#2a1608);border-color:var(--gold-dark);color:var(--gold-light);}
+    .pull-btn-glow{
+      position:absolute;inset:0;
+      background:radial-gradient(circle at 50% 0%,rgba(201,168,76,0.15),transparent 70%);
+      opacity:0;transition:opacity 200ms;
+    }
+    .pull-btn.pulling .pull-btn-glow{opacity:1;}
+
+    /* cup on drip tray */
+    .drip-tray{
+      width:clamp(130px,20vw,190px);
+      background:linear-gradient(180deg,#1a1a1a,#111);
+      border:1px solid #333;border-radius:2px 2px 4px 4px;
+      padding:8px;display:flex;align-items:flex-end;justify-content:center;gap:8px;
+      min-height:64px;position:relative;
+    }
+    .tray-label{font-family:'IM Fell English SC',serif;font-size:clamp(0.36rem,0.85vw,0.48rem);color:#555;letter-spacing:0.1em;position:absolute;top:4px;left:50%;transform:translateX(-50%);white-space:nowrap;}
+
+    /* the cup */
+    .cup-wrap{display:flex;flex-direction:column;align-items:center;gap:0;position:relative;}
+    .cup{
+      width:clamp(32px,5vw,46px);height:clamp(28px,4.5vw,40px);
+      background:#e8e0d0;
+      clip-path:polygon(8% 0%,92% 0%,82% 100%,18% 100%);
+      position:relative;overflow:hidden;
+      transition:background 200ms;
+    }
+    .cup-fill{
+      position:absolute;bottom:0;left:0;right:0;
+      background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 100%);
+      height:0;transition:height 0.3s ease,background 0.3s ease;
+      border-radius:0 0 2px 2px;
+    }
+    .cup-saucer{
+      width:clamp(42px,7vw,60px);height:4px;
+      background:linear-gradient(90deg,#bbb,#e0e0e0,#bbb);
+      border-radius:2px;margin-top:1px;
+    }
+    .cup-label{
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.36rem,0.85vw,0.48rem);
+      color:var(--parchment2);letter-spacing:0.06em;margin-top:3px;text-align:center;opacity:0.7;
+      min-height:10px;
+    }
+    .cup-check{color:#4a8;font-size:clamp(0.6rem,1.5vw,0.85rem);font-weight:bold;opacity:0;transition:opacity 200ms;}
+    .cup-check.show{opacity:1;}
+
+    /* RIGHT: add-ins + serve */
+    .machine-right{display:flex;flex-direction:column;gap:8px;}
+
+    .section-label{
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.46rem,1.1vw,0.6rem);
+      letter-spacing:0.12em;color:var(--gold-soft);opacity:0.8;margin-bottom:2px;
     }
 
-    /* Default image behavior (good for the big GIF) */
-    img {
-      display: block;
-      margin: 0 auto;
+    /* add-in buttons */
+    .addins-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+    .addin-btn{
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.48rem,1.1vw,0.62rem);
+      letter-spacing:0.08em;
+      background:radial-gradient(circle at 38% 32%,#3a2010,#1a0c04);
+      border:1.5px solid var(--gold-soft);border-radius:3px;
+      color:var(--parchment2);padding:6px 8px;cursor:none;
+      transition:transform 150ms cubic-bezier(.34,1.56,.64,1),box-shadow 150ms,background 150ms,border-color 150ms;
+      box-shadow:0 2px 8px rgba(0,0,0,0.4);
+      display:flex;flex-direction:column;align-items:center;gap:2px;
     }
+    .addin-btn:hover{transform:translateY(-3px);box-shadow:0 6px 14px rgba(0,0,0,0.5),0 0 10px rgba(180,136,48,0.3);}
+    .addin-btn.added{border-color:#4a8;background:radial-gradient(circle at 38% 32%,#0e3a10,#041408);box-shadow:0 0 10px rgba(74,136,74,0.3);}
+    .addin-btn.wrong-add{border-color:#c04;animation:wrongShake 0.3s ease both;}
+    @keyframes wrongShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+    .addin-icon{font-size:clamp(0.9rem,2vw,1.2rem);}
+    .addin-name{font-size:clamp(0.4rem,0.9vw,0.52rem);opacity:0.75;}
 
-    /* --- Social icons row --- */
-    ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 80px;          /* spacing between icons */
-      padding: 0;
-      margin: 70px 0 0;   /* push icons down a bit */
+    /* serve button */
+    .serve-btn{
+      font-family:'Cinzel Decorative',serif;font-size:clamp(0.55rem,1.3vw,0.72rem);
+      letter-spacing:0.06em;color:var(--ink);
+      background:linear-gradient(120deg,var(--gold-dark),var(--gold-soft) 50%,var(--gold-dark));
+      border:none;border-radius:3px;padding:8px 12px;cursor:none;
+      box-shadow:0 3px 0 var(--gold-dark),0 4px 14px rgba(0,0,0,0.45);
+      transition:transform 150ms,box-shadow 150ms;
+      position:relative;overflow:hidden;
     }
+    .serve-btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--gold-dark),0 8px 20px rgba(0,0,0,0.5);}
+    .serve-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--gold-dark),0 2px 8px rgba(0,0,0,0.4);}
+    .serve-btn:disabled{opacity:0.4;pointer-events:none;}
 
-    ul li {
-      display: flex;
+    /* clear cup */
+    .clear-btn{
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.44rem,1vw,0.58rem);
+      letter-spacing:0.1em;color:var(--parchment2);
+      background:rgba(255,255,255,0.05);border:1px solid #444;
+      border-radius:3px;padding:5px 8px;cursor:none;opacity:0.7;
+      transition:opacity 150ms,border-color 150ms;
     }
+    .clear-btn:hover{opacity:1;border-color:var(--gold-dark);}
 
-    ul li a {
-      pointer-events: auto; /* flower div uses pointer-events none; links should still work */
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    /* feedback toast */
+    #feedback-toast{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0.8);
+      font-family:'Cinzel Decorative',serif;font-size:clamp(0.9rem,2.5vw,1.4rem);
+      color:var(--gold-light);text-shadow:0 0 20px rgba(212,170,90,0.6);
+      opacity:0;pointer-events:none;z-index:10;white-space:nowrap;
+      transition:none;
     }
+    #feedback-toast.show{animation:toastPop 1s cubic-bezier(.34,1.56,.64,1) both;}
+    @keyframes toastPop{0%{opacity:0;transform:translate(-50%,-50%) scale(0.6);}20%{opacity:1;transform:translate(-50%,-50%) scale(1.05);}70%{opacity:1;transform:translate(-50%,-50%) scale(1);}100%{opacity:0;transform:translate(-50%,-60%) scale(0.9);}}
 
-    /* ✅ SOCIAL ICON SIZING */
-    .social-icon {
-      width: 80px;       /* tweak: for sizing; bigger/smaller */
-      height: 80px;
-      display: block;
-      margin: 0;
+    /* start / game over */
+    .game-splash{
+      position:absolute;inset:0;background:rgba(8,4,0,0.9);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+      border-radius:6px;z-index:20;
+      animation:fadeIn 0.3s ease both;
     }
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+    .splash-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1rem,2.8vw,1.6rem);color:var(--gold-light);text-align:center;}
+    .splash-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.6rem,1.5vw,0.8rem);color:var(--parchment2);opacity:0.75;text-align:center;max-width:340px;line-height:1.5;}
+    .splash-score{font-family:'IM Fell English SC',serif;font-size:clamp(0.7rem,1.8vw,1rem);color:var(--parchment2);letter-spacing:0.1em;}
+    .start-btn{
+      font-family:'Cinzel Decorative',serif;font-size:clamp(0.65rem,1.6vw,0.85rem);
+      letter-spacing:0.06em;color:var(--ink);
+      background:linear-gradient(120deg,var(--gold-dark),var(--gold-soft) 50%,var(--gold-dark));
+      border:none;border-radius:3px;padding:9px 26px;cursor:none;
+      box-shadow:0 3px 0 var(--gold-dark),0 6px 16px rgba(0,0,0,0.5);
+      transition:transform 150ms,box-shadow 150ms;
+    }
+    .start-btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--gold-dark),0 10px 22px rgba(0,0,0,0.55);}
 
-    /* ✅ subtle hover effect */
-    ul li img {
-      transition: transform 150ms ease, filter 150ms ease;
+    /* instructions */
+    .instructions{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+      font-family:'IM Fell English SC',serif;font-size:clamp(0.38rem,0.9vw,0.52rem);
+      letter-spacing:0.07em;color:var(--parchment2);
     }
+    .inst-step{
+      background:rgba(255,255,255,0.04);border:1px solid var(--gold-dark);
+      border-radius:3px;padding:5px 6px;text-align:center;opacity:0.8;
+      display:flex;flex-direction:column;gap:3px;align-items:center;
+    }
+    .inst-step .ist{font-size:clamp(0.85rem,2vw,1.1rem);}
 
-    ul li img:hover {
-      transform: translateY(-3px) scale(1.05);
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
-    }
-
-    /* --- Flower cursor effect --- */
-    div {
-      position: absolute;
-      pointer-events: none;
-      filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.5));
-      animation: fadeInOut 2s linear infinite;
-    }
-
-    /* flower */
-    div.flower::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url('46ae3fd45fb59aae5bdb775eccd3ee07-removebg-preview.png') no-repeat center center;
-      background-size: contain;
-      animation: move 2s linear infinite;
-    }
-
-    @keyframes move {
-      0% { transform: translate(0) rotate(0deg); }
-      100% { transform: translate(300px) rotate(360deg); }
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      20%, 80% { opacity: 1; }
-    }
+    @media(max-height:520px){.plaque,.music-hint{display:none;}.squidward{width:90px;}.icons-row{margin-top:8px;}}
   </style>
 </head>
-
 <body>
+
+  <div class="spot spot-top"></div>
+  <div class="spot spot-bl"></div>
+  <div class="spot spot-br"></div>
+  <div id="cursor-butter">🧈</div>
+
+  <!-- CAFÉ TOGGLE TOP -->
+  <div class="corner-btns">
+    <button class="theme-toggle corner-btn" id="themeToggleBtn">🌙 Dark</button>
+    <button class="cafe-toggle corner-btn" id="cafeToggleBtn">☕ Café</button>
+  </div>
+
+  <div class="wrapper">
+    <div>
+      <h1>The Digital Gallery</h1>
+      <div class="byline">✦ &nbsp; Curated by Fatima &nbsp; ✦</div>
+    </div>
+    <div class="plaque">Est. Anno Domini · University of Rochester · Class of ʼ25</div>
+    <p class="music-hint" id="musicHint">𝄞 &thinsp; Click anywhere to play music &thinsp; 𝄞</p>
+
+    <div class="frame-outer">
+      <div class="corner tl"></div><div class="corner tr"></div>
+      <div class="corner bl"></div><div class="corner br"></div>
+      <div class="frame-liner">
+        <img class="squidward" src="https://i.gifer.com/O8Ho.gif" alt="Handsome Squidward">
+      </div>
+      <div class="frame-caption">Squidwardus Magnificus · c. 2025</div>
+    </div>
+
+    <div class="icons-row">
+      <a class="icon-link" href="https://www.linkedin.com/in/fatima-dembele/" target="_blank" rel="noopener noreferrer">
+        <div class="icon-circle">🤝</div><span class="icon-label">LinkedIn</span>
+      </a>
+      <a class="icon-link" href="mailto:fdembele@u.rochester.edu" target="_blank" rel="noopener noreferrer">
+        <div class="icon-circle">✉️</div><span class="icon-label">Email</span>
+      </a>
+      <a class="icon-link" href="https://github.com/fatima-d09" target="_blank" rel="noopener noreferrer">
+        <div class="icon-circle">
+          <svg class="github-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </div><span class="icon-label">GitHub</span>
+      </a>
+      <a class="icon-link" href="https://fatima-dembele.w3spaces.com/index.html" target="_blank" rel="noopener noreferrer">
+        <div class="icon-circle">🖼️</div><span class="icon-label">Portfolio</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══════════ BARISTA GAME MODAL ══════════ -->
+  <div class="modal-overlay" id="cafeModal">
+    <div class="game-modal" id="gameModal">
+      <div id="feedback-toast"></div>
+
+      <!-- header row -->
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-title">☕ Fatima's Espresso Bar</div>
+          <div class="modal-sub">Timed rush — serve as many correct orders as you can!</div>
+        </div>
+        <div class="hud">
+          <div class="hud-box">Score<br><strong id="g-score">0</strong></div>
+          <div class="hud-box">Served<br><strong id="g-served">0</strong></div>
+          <div class="hud-box">Streak<br><strong id="g-streak">0🔥</strong></div>
+        </div>
+        <button class="close-btn" id="cafeClose">✕</button>
+      </div>
+
+      <!-- timer -->
+      <div class="timer-track"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
+
+      <!-- order queue -->
+      <div class="order-queue" id="order-queue"></div>
+
+      <!-- machine + controls -->
+      <div class="machine-area">
+
+        <!-- LEFT: espresso machine -->
+        <div class="machine-left">
+          <div class="machine-body">
+            <div class="machine-brand">La Fatima</div>
+            <div class="portafilter-zone">
+              <div class="pf-label">Portafilter</div>
+              <div class="shot-streams" id="shot-streams">
+                <div class="shot-stream" id="s1"></div>
+                <div class="shot-stream" id="s2"></div>
+              </div>
+              <div class="shot-count-display" id="shot-count-display">—</div>
+            </div>
+            <button class="pull-btn" id="pull-btn">
+              <div class="pull-btn-glow"></div>
+              <span id="pull-btn-label">Hold to Pull Shot</span>
+            </button>
+          </div>
+          <div class="drip-tray">
+            <div class="tray-label">Drip Tray</div>
+            <div class="cup-wrap">
+              <div class="cup" id="cup"><div class="cup-fill" id="cup-fill"></div></div>
+              <div class="cup-saucer"></div>
+              <div class="cup-label" id="cup-label">empty</div>
+            </div>
+            <div class="cup-check" id="cup-check">✓</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: add-ins + serve -->
+        <div class="machine-right">
+          <div class="section-label">Add to Cup</div>
+          <div class="addins-grid">
+            <button class="addin-btn" id="btn-milk" data-add="milk">
+              <span class="addin-icon">🥛</span><span class="addin-name">Steam Milk</span>
+            </button>
+            <button class="addin-btn" id="btn-foam" data-add="foam">
+              <span class="addin-icon">☁️</span><span class="addin-name">Milk Foam</span>
+            </button>
+            <button class="addin-btn" id="btn-water" data-add="water">
+              <span class="addin-icon">💧</span><span class="addin-name">Hot Water</span>
+            </button>
+            <button class="addin-btn" id="btn-nothing" data-add="nothing" style="opacity:0.4;pointer-events:none;">
+              <span class="addin-icon">✨</span><span class="addin-name">Plain</span>
+            </button>
+          </div>
+
+          <div class="section-label" style="margin-top:4px;">Actions</div>
+          <button class="serve-btn" id="serve-btn" disabled>Serve Order ☕</button>
+          <button class="clear-btn" id="clear-btn">Clear Cup ↺</button>
+
+          <!-- current cup recipe display -->
+          <div style="margin-top:4px;">
+            <div class="section-label">In the Cup</div>
+            <div id="cup-contents" style="font-family:'IM Fell English SC',serif;font-size:clamp(0.44rem,1vw,0.58rem);color:var(--parchment2);letter-spacing:0.07em;line-height:1.6;opacity:0.8;">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- instructions panel -->
+      <div class="instructions">
+        <div class="inst-step"><span class="ist">☕</span>Hold pull btn to pull shots (1s=1, 2s=2, 3s=3)</div>
+        <div class="inst-step"><span class="ist">🥛</span>Add steam milk for Latte</div>
+        <div class="inst-step"><span class="ist">☁️</span>Add foam for Cappuccino</div>
+        <div class="inst-step"><span class="ist">💧</span>Add water for Americano</div>
+      </div>
+
+      <!-- splash / game over overlay inside modal -->
+      <div class="game-splash" id="game-splash">
+        <div class="splash-title" id="splash-title">☕ Fatima's Espresso Bar</div>
+        <div class="splash-sub" id="splash-sub">You're the barista! Customers order drinks — pull espresso shots (hold 1–3 sec), add the right ingredient, then serve. Timed rush: 90 seconds!</div>
+        <div class="splash-score" id="splash-score" style="display:none;"></div>
+        <button class="start-btn" id="start-btn">Start Rush ☕</button>
+      </div>
+
+    </div>
+  </div>
+
   <script>
-    let isPlaying = false;
-    let sound; // keep reference so stop works
+  /* ── DUST ── */
+  for(let i=0;i<18;i++){
+    const d=document.createElement('div');d.className='dust';
+    const s=1.5+Math.random()*3.5;
+    d.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}vw;animation-duration:${7+Math.random()*11}s;animation-delay:${Math.random()*9}s;`;
+    document.body.appendChild(d);
+  }
 
-    window.addEventListener('click', () => {
-      const filename = "Tems";
+  /* ── BUTTER CURSOR ── */
+  const butter=document.getElementById('cursor-butter');
+  document.addEventListener('mousemove',e=>{butter.style.left=e.clientX+'px';butter.style.top=e.clientY+'px';});
 
-      // ✅ only create once
-      if (!sound) sound = new Song(filename);
+  /* ── MUSIC (Song class pattern, safe toggle) ── */
+  var Song = function(filename) {
+    if (!('Audio' in window)) return;
+    this.filename = filename;
+    var elt = this.elt = new Audio();
+    elt.src = elt.canPlayType('audio/mpeg;') ? filename + '.mp3'
+            : elt.canPlayType('audio/ogg; codecs="vorbis"') ? filename + '.ogg'
+            : filename + '.mp3';
+    elt.loop = true;
+    elt.style.display = 'none';
+    document.body.appendChild(elt);
+  };
+  Song.prototype.start = function() { if ('Audio' in window) { this.playing = true;  this.elt.play().catch(()=>{}); } };
+  Song.prototype.stop  = function() { if ('Audio' in window) { this.playing = false; this.elt.pause(); } };
 
-      if (!isPlaying) {
-        sound.start();
-        isPlaying = true;
-      } else {
-        sound.stop();
-        isPlaying = false;
-      }
+  let sound = null;
+  let musicPlaying = false;
+  const hint = document.getElementById('musicHint');
+
+  // Blocked elements — clicks on these should NOT toggle music
+  function isMusicBlocked(e) {
+    return !!(
+      e.target.closest('a') ||
+      e.target.closest('.game-modal') ||
+      e.target.closest('#cafeToggleBtn') ||
+      e.target.closest('#themeToggleBtn') ||
+      e.target.closest('.corner-btns') ||
+      e.target.closest('button')
+    );
+  }
+
+  document.addEventListener('click', function(e) {
+    if (isMusicBlocked(e)) return;
+    if (!sound) sound = new Song('Tems');
+    if (!musicPlaying) {
+      sound.start();
+      musicPlaying = true;
+      hint.textContent = '𝄞  Now Playing — click to pause  𝄞';
+      hint.classList.add('playing');
+    } else {
+      sound.stop();
+      musicPlaying = false;
+      hint.textContent = '𝄞  Click anywhere to play music  𝄞';
+      hint.classList.remove('playing');
+    }
+  });
+
+  /* ── FLOWERS ── */
+  let flCount=0;
+  document.addEventListener('mousemove',e=>{
+    if(flCount>=7||Math.random()>0.38)return;
+    flCount++;
+    const el=document.createElement('div');el.className='flower';
+    const size=18+Math.random()*55;
+    el.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:${size}px;height:${size}px;--dx:${(Math.random()-.5)*130}px;--dy:${(Math.random()-.5)*85}px;--dr:${Math.random()*500-250}deg;transform:rotate(${Math.random()*360}deg);`;
+    document.body.appendChild(el);
+    setTimeout(()=>{el.remove();flCount--;},2000);
+  });
+
+  /* ── MODAL TOGGLE ── */
+  const modal=document.getElementById('cafeModal');
+  const toggleBtn=document.getElementById('cafeToggleBtn');
+  const closeBtn=document.getElementById('cafeClose');
+
+  toggleBtn.addEventListener('click',()=>{
+    const open=modal.classList.toggle('open');
+    toggleBtn.classList.toggle('active',open);toggleBtn.textContent=open?'☕ Café ✕':'☕ Café';;
+    if(open&&!gameRunning) showSplash(false);
+  });
+  closeBtn.addEventListener('click',()=>{
+    modal.classList.remove('open');
+    toggleBtn.textContent='☕ Mini Café — Open';
+    stopGame();
+  });
+
+  /* ══════════════════════════════════════
+     ☕  BARISTA GAME ENGINE
+  ══════════════════════════════════════ */
+
+  // Drink recipes: { shots, add }
+  // add: 'none'|'milk'|'foam'|'water'
+  const DRINKS=[
+    {name:'Espresso',    emoji:'☕', shots:1, add:'none',  desc:'1 shot, straight'},
+    {name:'Espresso',    emoji:'☕', shots:2, add:'none',  desc:'2 shots, straight'},
+    {name:'Espresso',    emoji:'☕', shots:3, add:'none',  desc:'3 shots, straight'},
+    {name:'Americano',   emoji:'🇺🇸☕',shots:2, add:'water', desc:'2 shots + hot water'},
+    {name:'Americano',   emoji:'🇺🇸☕',shots:1, add:'water', desc:'1 shot + hot water'},
+    {name:'Latte',       emoji:'🥛☕', shots:2, add:'milk',  desc:'2 shots + steam milk'},
+    {name:'Latte',       emoji:'🥛☕', shots:1, add:'milk',  desc:'1 shot + steam milk'},
+    {name:'Cappuccino',  emoji:'☁️☕', shots:2, add:'foam',  desc:'2 shots + milk foam'},
+    {name:'Cappuccino',  emoji:'☁️☕', shots:1, add:'foam',  desc:'1 shot + milk foam'},
+  ];
+
+  const GAME_DURATION=90; // seconds
+  const MAX_ORDERS=3;
+  const ORDER_INTERVAL=8000;
+  const ORDER_LIFE=18000; // ms before order expires
+
+  let gameRunning=false,gamePaused=false;
+  let score=0,served=0,streak=0;
+  let timeLeft=GAME_DURATION;
+  let gameTimer=null,orderTimer=null,timerInterval=null;
+  let orders=[];
+  let orderIdCounter=0;
+
+  // Cup state
+  let cupShots=0;     // 0-3
+  let cupAdd=null;    // null|'milk'|'foam'|'water'
+  let pulling=false;
+  let pullStart=0;
+  let pullRafId=null;
+
+  // DOM refs
+  const splash=document.getElementById('game-splash');
+  const splashTitle=document.getElementById('splash-title');
+  const splashSub=document.getElementById('splash-sub');
+  const splashScore=document.getElementById('splash-score');
+  const startBtn=document.getElementById('start-btn');
+  const orderQueue=document.getElementById('order-queue');
+  const timerFill=document.getElementById('timer-fill');
+  const gScore=document.getElementById('g-score');
+  const gServed=document.getElementById('g-served');
+  const gStreak=document.getElementById('g-streak');
+  const pullBtn=document.getElementById('pull-btn');
+  const pullBtnLabel=document.getElementById('pull-btn-label');
+  const shotStreams=document.getElementById('shot-streams').querySelectorAll('.shot-stream');
+  const shotCountDisp=document.getElementById('shot-count-display');
+  const cupFill=document.getElementById('cup-fill');
+  const cupLabel=document.getElementById('cup-label');
+  const cupCheck=document.getElementById('cup-check');
+  const cupContents=document.getElementById('cup-contents');
+  const serveBtn=document.getElementById('serve-btn');
+  const clearBtn=document.getElementById('clear-btn');
+  const feedbackToast=document.getElementById('feedback-toast');
+  const addinBtns=document.querySelectorAll('.addin-btn');
+
+  startBtn.addEventListener('click',startGame);
+
+  function showSplash(isGameOver){
+    splash.style.display='flex';
+    if(isGameOver){
+      splashTitle.textContent='Rush Over! 🌙';
+      splashSub.textContent='The espresso machine is cooling down...';
+      splashScore.style.display='block';
+      splashScore.textContent=`Score: ${score} · Drinks Served: ${served}`;
+      startBtn.textContent='Another Rush ☕';
+    } else {
+      splashTitle.textContent='☕ Fatima\'s Espresso Bar';
+      splashSub.textContent='Hold the pull button to extract shots (1s=1 shot, 2s=2, 3s=3). Add the right ingredient and serve the order before it expires. You have 90 seconds!';
+      splashScore.style.display='none';
+      startBtn.textContent='Start Rush ☕';
+    }
+  }
+
+  function startGame(){
+    score=0;served=0;streak=0;timeLeft=GAME_DURATION;
+    orders=[];gameRunning=true;gamePaused=false;
+    clearCup();
+    orderQueue.innerHTML='';
+    updateHUD();
+    splash.style.display='none';
+    stopTimers();
+    // countdown
+    timerInterval=setInterval(()=>{
+      timeLeft=Math.max(0,timeLeft-0.25);
+      const pct=timeLeft/GAME_DURATION*100;
+      timerFill.style.width=pct+'%';
+      timerFill.classList.toggle('low',pct<20);
+      if(timeLeft<=0){endGame();}
+    },250);
+    // spawn orders
+    spawnOrder();
+    orderTimer=setInterval(()=>{
+      if(orders.length<MAX_ORDERS) spawnOrder();
+    },ORDER_INTERVAL);
+  }
+
+  function stopGame(){gameRunning=false;stopTimers();}
+
+  function stopTimers(){
+    if(timerInterval)clearInterval(timerInterval);
+    if(orderTimer)clearInterval(orderTimer);
+    if(gameTimer)clearTimeout(gameTimer);
+    timerInterval=orderTimer=gameTimer=null;
+  }
+
+  function endGame(){
+    stopGame();
+    showSplash(true);
+  }
+
+  function spawnOrder(){
+    if(!gameRunning||orders.length>=MAX_ORDERS) return;
+    const drink=DRINKS[Math.floor(Math.random()*DRINKS.length)];
+    const id=++orderIdCounter;
+    const ticket={id,drink,el:null,barEl:null,timerId:null,created:Date.now()};
+    orders.push(ticket);
+    renderTicket(ticket);
+    // auto-expire
+    ticket.timerId=setTimeout(()=>expireOrder(id),ORDER_LIFE);
+    // animate progress bar
+    animateTicketBar(ticket);
+  }
+
+  function renderTicket(ticket){
+    const el=document.createElement('div');
+    el.className='order-ticket';el.id='ticket-'+ticket.id;
+    el.innerHTML=`
+      <div class="t-drink">${ticket.drink.name}</div>
+      <div class="t-shots">${ticket.drink.shots} shot${ticket.drink.shots>1?'s':''}</div>
+      <div class="t-extra">${ticket.drink.add==='none'?'straight':ticket.drink.add==='milk'?'+ steam milk':ticket.drink.add==='foam'?'+ foam':'+ hot water'}</div>
+      <div class="order-tick-bar" id="bar-${ticket.id}" style="width:100%"></div>
+    `;
+    orderQueue.appendChild(el);
+    ticket.el=el;
+    ticket.barEl=document.getElementById('bar-'+ticket.id);
+  }
+
+  function animateTicketBar(ticket){
+    const start=Date.now();
+    function step(){
+      if(!ticket.el||!document.contains(ticket.el)) return;
+      const elapsed=Date.now()-start;
+      const pct=Math.max(0,100-(elapsed/ORDER_LIFE)*100);
+      ticket.barEl.style.width=pct+'%';
+      ticket.barEl.classList.toggle('urgent',pct<30);
+      if(pct>0) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function expireOrder(id){
+    const idx=orders.findIndex(o=>o.id===id);
+    if(idx===-1) return;
+    const ticket=orders[idx];
+    if(ticket.el){
+      ticket.el.classList.add('failed');
+      setTimeout(()=>{ticket.el&&ticket.el.remove();},400);
+    }
+    orders.splice(idx,1);
+    streak=0;updateHUD();
+    showToast('Expired! 💨',-1);
+  }
+
+  /* ── PULL BUTTON mechanics ── */
+  pullBtn.addEventListener('mousedown',startPull);
+  pullBtn.addEventListener('touchstart',startPull,{passive:true});
+  pullBtn.addEventListener('mouseup',endPull);
+  pullBtn.addEventListener('touchend',endPull);
+  pullBtn.addEventListener('mouseleave',endPull);
+
+  function startPull(e){
+    if(!gameRunning||pulling) return;
+    pulling=true;pullStart=Date.now();
+    pullBtn.classList.add('pulling','pressing');
+    pullBtnLabel.textContent='Extracting...';
+    shotStreams.forEach(s=>{s.classList.add('flowing');s.style.height='0px';});
+    updatePullVisual();
+  }
+
+  function updatePullVisual(){
+    if(!pulling) return;
+    const held=(Date.now()-pullStart)/1000;
+    const shots=Math.min(3,Math.ceil(held));
+    const h=Math.min(28,held*10);
+    shotStreams.forEach((s,i)=>{s.style.height=i<shots?h+'px':'0px';});
+    shotCountDisp.textContent=held<0.4?'Pulling...':`${Math.min(3,Math.floor(held)+1)} shot${Math.min(3,Math.floor(held)+1)>1?'s':''}`;
+    if(held<3) pullRafId=requestAnimationFrame(updatePullVisual);
+    else { endPull(); } // auto-stop at 3s
+  }
+
+  function endPull(){
+    if(!pulling) return;
+    pulling=false;
+    if(pullRafId){cancelAnimationFrame(pullRafId);pullRafId=null;}
+    const held=(Date.now()-pullStart)/1000;
+    const shots=Math.max(1,Math.min(3,Math.round(held)));
+    cupShots=shots;
+    shotStreams.forEach(s=>{s.classList.remove('flowing');s.style.height='0px';});
+    pullBtn.classList.remove('pulling','pressing');
+    pullBtnLabel.textContent=`${shots} Shot${shots>1?'s':''} Pulled ✓`;
+    setTimeout(()=>{if(!pulling)pullBtnLabel.textContent='Hold to Pull Shot';},1200);
+    updateCupDisplay();
+    shotCountDisp.textContent=`${shots} shot${shots>1?'s':''}`;
+    setTimeout(()=>{shotCountDisp.textContent='—';},1500);
+  }
+
+  /* ── ADD-IN buttons ── */
+  addinBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const add=btn.dataset.add;
+      if(!gameRunning||add==='nothing') return;
+      if(cupShots===0){showToast('Pull shots first! ☕',-1);return;}
+      if(cupAdd!==null){showToast('Already added!',-1);return;}
+      cupAdd=add;
+      btn.classList.add('added');
+      updateCupDisplay();
     });
+  });
 
-    var Song = function (filename) {
-      if (!("Audio" in window)) { return; }
+  function updateCupDisplay(){
+    // cup fill color
+    let fillColor='rgba(0,0,0,0)';
+    let fillH='0%';
+    let labelTxt='empty';
 
-      this.filename = filename;
-      var song = this,
-        elt = this.elt = new Audio();
+    if(cupShots>0){
+      fillColor='#3a1a08';
+      fillH=cupShots===1?'40%':cupShots===2?'60%':'80%';
+      labelTxt=`${cupShots} shot${cupShots>1?'s':''}`;
+    }
+    if(cupAdd==='milk'){fillColor='#c8a06a';labelTxt+='+milk';}
+    else if(cupAdd==='foam'){fillColor='#e0d0b0';labelTxt+='+foam';}
+    else if(cupAdd==='water'){fillColor='#4a6080';labelTxt+='+water';}
 
-      if (elt.canPlayType('audio/mpeg;')) {
-        elt.src = filename + '.mp3';
-      } else if (elt.canPlayType('audio/ogg; codecs="vorbis"')) {
-        elt.src = filename + '.ogg';
-      } else {
-        elt.src = filename + '.mp3';
-      }
+    cupFill.style.height=fillH;
+    cupFill.style.background=`linear-gradient(180deg,${fillColor}99,${fillColor})`;
+    cupLabel.textContent=labelTxt;
 
-      elt.loop = true;
+    // contents summary
+    let parts=[];
+    if(cupShots>0) parts.push(`${cupShots} shot${cupShots>1?'s':''}`);
+    if(cupAdd&&cupAdd!=='none') parts.push(cupAdd==='milk'?'steam milk':cupAdd==='foam'?'milk foam':'hot water');
+    cupContents.textContent=parts.length?parts.join(' + '):'—';
 
-      // Optional: keep it invisible
-      elt.style.display = "none";
-      document.body.appendChild(elt);
-    };
+    // check serve readiness
+    const ready=cupShots>0;
+    serveBtn.disabled=!ready;
+    cupCheck.classList.toggle('show',ready);
+  }
 
-    Song.prototype.start = function () {
-      if ("Audio" in window) {
-        this.playing = true;
-        this.elt.play();
-      }
-    };
+  clearBtn.addEventListener('click',()=>{
+    clearCup();
+    // de-highlight addin btns
+    addinBtns.forEach(b=>b.classList.remove('added'));
+  });
 
-    Song.prototype.stop = function () {
-      if ("Audio" in window) {
-        this.playing = false;
-        this.elt.pause();
-      }
-    };
+  function clearCup(){
+    cupShots=0;cupAdd=null;
+    cupFill.style.height='0%';
+    cupLabel.textContent='empty';
+    cupContents.textContent='—';
+    serveBtn.disabled=true;
+    cupCheck.classList.remove('show');
+    addinBtns.forEach(b=>b.classList.remove('added','wrong-add'));
+    pullBtnLabel.textContent='Hold to Pull Shot';
+  }
 
-    document.addEventListener('mousemove', function (e) {
-      const maxFlowers = 6; // Maximum number of flowers
-      const flowers = document.querySelectorAll('.flower');
+  /* ── SERVE ── */
+  serveBtn.addEventListener('click',()=>{
+    if(!gameRunning||orders.length===0) return;
+    if(cupShots===0){showToast('No espresso!',- 1);return;}
 
-      // Check if the maximum number of flowers is already displayed
-      if (flowers.length >= maxFlowers) return;
+    // find best matching order
+    const cupAddNorm=cupAdd||'none';
+    // look for exact match first
+    let matchIdx=orders.findIndex(o=>o.drink.shots===cupShots&&o.drink.add===cupAddNorm);
+    // if no exact, try shot-flex (same drink type, close shots)
+    if(matchIdx===-1){
+      // penalized partial: same add, shots off by 1
+      matchIdx=orders.findIndex(o=>o.drink.add===cupAddNorm&&Math.abs(o.drink.shots-cupShots)===1);
+    }
 
-      // Probability of flower creation (1 = always, 0.5 = half the time)
-      const probability = 1;
-      if (Math.random() > probability) return;
+    if(matchIdx!==-1){
+      const ticket=orders[matchIdx];
+      clearTimeout(ticket.timerId);
+      ticket.el.classList.add('served');
+      setTimeout(()=>ticket.el&&ticket.el.remove(),450);
+      orders.splice(matchIdx,1);
 
-      let body = document.querySelector('body');
-      let flower = document.createElement('div');
-      flower.className = 'flower';
+      // scoring
+      const exact=(orders.length>=0)&&(ticket.drink.shots===cupShots);
+      const timeBonus=Math.floor((ORDER_LIFE-(Date.now()-ticket.created))/1000)*2;
+      const basePoints=exact?100:60;
+      streak++;
+      const streakBonus=streak>=3?streak*10:0;
+      const pts=basePoints+Math.max(0,timeBonus)+streakBonus;
+      score+=pts;served++;
+      updateHUD();
+      const msg=exact?`Perfect! +${pts}✨`:`Close! +${pts}☕`;
+      showToast(msg,1);
+    } else {
+      // wrong drink
+      streak=0;score=Math.max(0,score-20);
+      updateHUD();
+      showToast('Wrong order! -20',-1);
+      addinBtns.forEach(b=>{if(b.classList.contains('added'))b.classList.add('wrong-add');});
+    }
 
-      let x = e.offsetX;
-      let y = e.offsetY;
-      flower.style.left = x + 'px';
-      flower.style.top = y + 'px';
+    clearCup();
+    addinBtns.forEach(b=>b.classList.remove('added'));
+  });
 
-      let size = Math.random() * 80;
-      flower.style.width = 20 + size + 'px';
-      flower.style.height = 20 + size + 'px';
+  function updateHUD(){
+    gScore.textContent=score;
+    gServed.textContent=served;
+    gStreak.textContent=streak+(streak>=3?'🔥':'');
+  }
 
-      let rotation = Math.random() * 360;
-      flower.style.transform = `rotate(${rotation}deg)`;
+  function showToast(msg,type){
+    feedbackToast.textContent=msg;
+    feedbackToast.style.color=type===1?'#6dda8a':'#e06060';
+    feedbackToast.classList.remove('show');
+    void feedbackToast.offsetWidth;
+    feedbackToast.classList.add('show');
+    setTimeout(()=>feedbackToast.classList.remove('show'),950);
+  }
 
-      body.appendChild(flower);
 
-      setTimeout(function () {
-        flower.remove();
-      }, 2000);
-    });
+  /* ── THEME TOGGLE ── */
+  const themeBtn=document.getElementById('themeToggleBtn');
+  let isLight=false;
+  themeBtn.addEventListener('click',()=>{
+    isLight=!isLight;
+    document.body.classList.toggle('light',isLight);
+    themeBtn.textContent=isLight?'☀️ Light':'🌙 Dark';
+  });
   </script>
-
-  <h1>Welcome to my Github!</h1>
-
-  <p>(✿◠‿◠) Fatima <br>
-    <span>🔊 Click anywhere (once) to Here the Audio 🔊</span>
-  </p>
-
-  <img src="https://i.gifer.com/O8Ho.gif" alt="Handsome Squidward dancing" width="20%">
-
-  <ul>
-    <li>
-      <a href="https://www.linkedin.com/in/fatima-dembele/" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="https://img.icons8.com/?size=512&id=64154&format=png" title="linkedin" alt="LinkedIn">
-      </a>
-    </li>
-
-    <li>
-      <a href="mailto:fdembele@u.rochester.edu" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="https://img.icons8.com/?size=512&id=6QtoKjRma1Cq&format=png" title="gmail" alt="Gmail">
-      </a>
-    </li>
-
-    <li>
-      <a href="https://github.com/fatima-d09" target="_blank" rel="noopener noreferrer">
-        <img class="social-icon" src="https://img.icons8.com/?size=512&id=118557&format=png" title="github" alt="GitHub">
-      </a>
-    </li>
-  </ul>
 </body>
 </html>
