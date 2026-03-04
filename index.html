@@ -279,7 +279,7 @@
 
   <div class="corner-btns">
     <button class="theme-toggle corner-btn" id="themeToggleBtn">🌙 Dark</button>
-    <button class="cafe-toggle corner-btn" id="cafeToggleBtn">☕ Café</button>
+    <button class="cafe-toggle corner-btn" id="cafeToggleBtn">☕ Mini Café</button>
   </div>
 
   <div class="wrapper">
@@ -287,7 +287,7 @@
       <h1>The Digital Gallery</h1>
       <div class="byline">✦ &nbsp; Curated by Fatima &nbsp; ✦</div>
     </div>
-    <div class="plaque">Est. Anno Domini · University of Rochester · Class of ʼ25</div>
+    <div class="plaque">Est. 2025 · University of Rochester · CS Graduate</div>
     <p class="music-hint" id="musicHint">𝄞 &thinsp; Click anywhere to play music &thinsp; 𝄞</p>
 
     <!-- frame gets margin-bottom so caption never overlaps icons -->
@@ -441,13 +441,13 @@
   toggleBtn.addEventListener('click',()=>{
     const open=modal.classList.toggle('open');
     toggleBtn.classList.toggle('active',open);
-    toggleBtn.textContent=open?'☕ Café ✕':'☕ Café';
+    toggleBtn.textContent=open?'☕ Mini Café — Opened':'☕ Mini Café';
     if(open&&!gameRunning)showSplash(false);
   });
   closeBtn.addEventListener('click',()=>{
     modal.classList.remove('open');
     toggleBtn.classList.remove('active');
-    toggleBtn.textContent='☕ Café';
+    toggleBtn.textContent='☕ Mini Café';
     stopGame();
   });
 
